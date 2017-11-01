@@ -1,5 +1,23 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        // the latest version of the android-apt plugin
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+apply plugin: 'com.neenbedankt.android-apt'
+
+repositories {
+    jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
+}
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -13,10 +31,43 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            debuggable true
+        }
     }
+
+    productFlavors {
+        debug_app {
+            //stage/dev implementation will go here..
+            applicationId "com.test.assignment.debug"
+            buildConfigField 'String', 'HOST', '"http://express-it.optusnet.com.au/"'
+        }
+        release_app {
+            //production implementation will go here..
+            applicationId "com.test.assignment"
+            buildConfigField 'String', 'HOST', '"http://express-it.optusnet.com.au/"'
+        }
+    }
+
+}
+
+ext {
+
+    // App dependencies
+    supportLibraryVersion = '26.1.0'
+    butterKnifeVersion = '7.0.1'
+    glideVersion = '3.7.0'
+    retrofitVersion = '2.3.0'
+    okhttpVersion = '3.8.0'
+    eventBusVersion = '3.0.0'
+    dagger2Version = '2.7'
+
 }
 
 dependencies {
@@ -24,7 +75,35 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //android support libraries
+    compile "com.android.support:support-compat:$supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+
+    //butterknife
+    compile "com.jakewharton:butterknife:$butterKnifeVersion"
+
+    //glide
+    compile "com.github.bumptech.glide:glide:$glideVersion"
+
+    //retrofit
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    //okhttp
+    compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    //Event Bus
+    compile "org.greenrobot:eventbus:$eventBusVersion"
+
+    // dependency injection
+    compile "com.google.dagger:dagger:$dagger2Version"
+    apt "com.google.dagger:dagger-compiler:$dagger2Version"
+
+    compile 'javax.inject:javax.inject:1'
     testCompile 'junit:junit:4.12'
+    provided 'javax.annotation:jsr250-api:1.0'
 }

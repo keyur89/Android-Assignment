@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlScenario2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <Spinner
+        android:id="@+id/spinnerPlaces"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/lblModeOfTransport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerPlaces"
+        android:layout_marginTop="50dp"
+        android:text="@string/mode_of_transport"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblModeOfTransport"
+        android:layout_marginTop="20dp"
+        android:text="@string/car"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/lblTrain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblCar"
+        android:layout_marginTop="20dp"
+        android:text="@string/train"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblModeOfTransport"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/lblCar"
+        android:text=""
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtTrain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblCar"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/lblTrain"
+        android:text=""
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnNavigate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblTrain"
+        android:layout_marginTop="20dp"
+        android:text="@string/navigate" />
+
+</RelativeLayout>

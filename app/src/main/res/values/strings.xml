@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Assignment App</string>
+    <string name="scenario_1">Scenario 1</string>
+    <string name="scenario_2">Scenario 2</string>
+    <string name="mode_of_transport">Mode Of Transport:</string>
+    <string name="car">Car - </string>
+    <string name="train">Train - </string>
+    <string name="navigate">Navigate</string>
+    <string name="network_error">Please Check Your Network Connection and Try Again</string>
+    <string name="unexpected_error">Unexpected error occurred, please try Again</string>
+    <string name="loading">Please wait…</string>
 </resources>
