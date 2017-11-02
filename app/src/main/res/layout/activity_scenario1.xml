@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?attr/colorPrimary"
+            android:elevation="6dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabMode="scrollable" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tabs" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container"
+            android:layout_centerInParent="true"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabSelectedTextColor="@android:color/transparent"
+            app:tabTextColor="@android:color/transparent" />
+
+        <View
+            android:id="@+id/seperator1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tabIndicator"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/cardview_dark_background" />
+
+        <RelativeLayout
+            android:id="@+id/rlSampleText"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/seperator1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:id="@+id/txtSample1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sample_text" />
+
+            <TextView
+                android:id="@+id/txtSample2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:text="@string/sample_text" />
+
+            <TextView
+                android:id="@+id/txtSample3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/sample_text" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/seperator2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rlSampleText"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/txtTabText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/seperator2"
+            android:gravity="center"
+            android:text="@string/app_name" />
+
+        <View
+            android:id="@+id/seperator3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txtTabText"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/cardview_dark_background" />
+
+        <RelativeLayout
+            android:id="@+id/rlButtonContainer"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@+id/seperator3"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnRed"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/red" />
+
+            <Button
+                android:id="@+id/btnBlue"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/blue" />
+
+            <Button
+                android:id="@+id/btnGreen"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/green" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

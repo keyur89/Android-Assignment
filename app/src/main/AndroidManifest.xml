@@ -19,10 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Scenario2.view.Scenario2Activity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/scenario_2" />
+
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.test.assignment.dagger.components;
 
 
-import com.test.assignment.Scenario2.view.Scenario2Activity;
 import com.test.assignment.dagger.modules.AppModule;
 
 import javax.inject.Singleton;
@@ -17,5 +16,4 @@ import dagger.Component;
 @Singleton
 public interface AppComponent {
 
-    void inject(Scenario2Activity scenario2Activity);
 }

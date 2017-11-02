@@ -2,19 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlScenario2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:layout_height="match_parent">
 
     <Spinner
         android:id="@+id/spinnerPlaces"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/lblModeOfTransport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinnerPlaces"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="50dp"
         android:text="@string/mode_of_transport"
         android:textSize="20sp" />
@@ -24,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblModeOfTransport"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/car"
         android:textSize="20sp" />
@@ -33,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblCar"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/train"
         android:textSize="20sp" />
@@ -62,6 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblTrain"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/navigate" />
 

@@ -7,11 +7,11 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +28,6 @@ import com.test.assignment.ServiceCall.SampleDataDetails.SampleDataFailureEvent;
 import com.test.assignment.ServiceCall.SampleDataDetails.SampleDataSuccessEvent;
 import com.test.assignment.Utils.Injector;
 import com.test.assignment.Utils.Network;
-import com.test.assignment.dagger.DaggerInjector;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,16 +35,13 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class Scenario2Activity extends AppCompatActivity implements Scenario2Provider {
+public class Scenario2Fragment extends Fragment implements Scenario2Provider {
 
-    @Inject
-    Scenario2Presenter scenario2Presenter;
+    Scenario2Presenter scenario2Presenter = new Scenario2Presenter();
 
     @Bind(R.id.rlScenario2)
     RelativeLayout rlScenario2;
@@ -65,26 +61,30 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
     double latitude = 0;
     double longitude = 0;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scenario2);
-        ButterKnife.bind(this);
-        DaggerInjector.get().inject(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    public Scenario2Fragment() {
+    }
 
+    public static Scenario2Fragment newInstance() {
+        Scenario2Fragment fragment = new Scenario2Fragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_scenario2, container, false);
+        ButterKnife.bind(this, rootView);
+        setRetainInstance(true);
         apiManager = ApiManager.getInstance();
         bus = Injector.provideEventBus();
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(getActivity());
 
-        if (savedInstanceState == null) {
-            if (checkIfNetworkConnected()) {
-                showLoading();
-                scenario2Presenter.callTravelDataDetails(apiManager);
-            } else {
-                hideLoading();
-                showError(getResources().getString(R.string.network_error));
-            }
+        if (checkIfNetworkConnected()) {
+            showLoading();
+            scenario2Presenter.callTravelDataDetails(apiManager);
+        } else {
+            hideLoading();
+            showError(getResources().getString(R.string.network_error));
         }
 
         btnNavigate.setOnClickListener(new View.OnClickListener() {
@@ -93,12 +93,13 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
                 navigateToMaps();
             }
         });
+        return rootView;
     }
 
     @Subscribe()
     public void SampleDataSuccessEvent(SampleDataSuccessEvent event) {
         hideLoading();
-        scenario2Presenter.fillSpinnerData(Scenario2Activity.this, event.getTravelDataModelArrayList());
+        scenario2Presenter.fillSpinnerData(Scenario2Fragment.this, event.getTravelDataModelArrayList());
     }
 
     @Subscribe()
@@ -109,13 +110,13 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
 
     @Override
     public void fillSpinnerData(final ArrayList<TravelDataModel> travelDataModelArrayList, ArrayList<String> placeNames) {
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, placeNames);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, placeNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPlaces.setAdapter(dataAdapter);
         spinnerPlaces.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                scenario2Presenter.fillSelectedItemData(Scenario2Activity.this, travelDataModelArrayList.get(i));
+                scenario2Presenter.fillSelectedItemData(Scenario2Fragment.this, travelDataModelArrayList.get(i));
             }
 
             @Override
@@ -155,7 +156,7 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
             mapIntent.setPackage("com.google.android.apps.maps");
 
             // Verify it resolves
-            PackageManager packageManager = getPackageManager();
+            PackageManager packageManager = getActivity().getPackageManager();
             List<ResolveInfo> activities = packageManager.queryIntentActivities(mapIntent, 0);
             boolean isIntentSafe = activities.size() > 0;
 
@@ -179,7 +180,7 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
     }
 
     public boolean checkIfNetworkConnected() {
-        return new Network(this).getConnectivityStatus();
+        return new Network(getActivity()).getConnectivityStatus();
     }
 
     public void showLoading() {
@@ -196,20 +197,8 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -230,13 +219,8 @@ public class Scenario2Activity extends AppCompatActivity implements Scenario2Pro
     }
 
     @Override
-    protected void onStop() {
-        bus.unregister(this);
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
+        bus.unregister(this);
     }
 }
