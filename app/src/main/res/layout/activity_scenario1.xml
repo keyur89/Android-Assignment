@@ -47,7 +47,7 @@
             android:layout_below="@+id/tabIndicator"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:background="@color/cardview_dark_background" />
+            android:background="@color/colorPrimary" />
 
         <RelativeLayout
             android:id="@+id/rlSampleText"
@@ -87,7 +87,7 @@
             android:layout_below="@+id/rlSampleText"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:background="@color/cardview_dark_background" />
+            android:background="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/txtTabText"
@@ -104,7 +104,7 @@
             android:layout_below="@+id/txtTabText"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:background="@color/cardview_dark_background" />
+            android:background="@color/colorPrimary" />
 
         <RelativeLayout
             android:id="@+id/rlButtonContainer"
